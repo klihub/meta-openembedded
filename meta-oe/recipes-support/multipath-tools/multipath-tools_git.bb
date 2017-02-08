@@ -46,7 +46,7 @@ TARGET_CC_ARCH += "${LDFLAGS}"
 EXTRA_OEMAKE = 'MULTIPATH_VERSION=${PV} DESTDIR=${D} syslibdir=${base_libdir} \
                 OPTFLAGS="${CFLAGS}" \
                 LIB=${base_libdir} libdir=${base_libdir}/multipath \
-                unitdir=/lib/systemd/system \
+                unitdir/=${systemd_system_unitdir} \
                 ${@bb.utils.contains("DISTRO_FEATURES", "systemd", "SYSTEMD=216", "", d)} \
                '
 
@@ -68,11 +68,12 @@ FILES_${PN}-dbg += "${base_libdir}/multipath/.debug"
 # systemd and udev stuff always goes under /lib!
 #
 FILES_${PN} += "${base_libdir}/multipath \
-                /lib/systemd"
+                ${systemd_system_unitdir} \
+		"
 
 PACKAGES =+ "kpartx"
 FILES_kpartx = "${base_sbindir}/kpartx \
-                /usr/lib/udev/kpartx_id \
+                ${nonarch_libdir}/udev/kpartx_id \
                "
 
 RDEPENDS_${PN} += "kpartx"
