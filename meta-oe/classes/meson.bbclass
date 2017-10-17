@@ -43,6 +43,9 @@ EXTRA_OEMESON += "${PACKAGECONFIG_CONFARGS}"
 MESON_CROSS_FILE = ""
 MESON_CROSS_FILE_class-target = "--cross-file ${WORKDIR}/meson.cross"
 
+MESON_INSTALL_RPATH = ""
+MESON_INSTALL_RPATH_class-native = "${libdir}"
+
 def meson_array(var, d):
     return "', '".join(d.getVar(var, True).split()).join(("'", "'"))
 
@@ -83,6 +86,7 @@ EOF
 CONFIGURE_FILES = "meson.build"
 
 meson_do_configure() {
+    export MESON_INSTALL_RPATH="${MESON_INSTALL_RPATH}"
     if ! meson ${MESONOPTS} "${MESON_SOURCEPATH}" "${B}" ${MESON_CROSS_FILE} ${EXTRA_OEMESON}; then
         cat ${B}/meson-logs/meson-log.txt
         bbfatal_log meson failed
