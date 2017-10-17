@@ -4,14 +4,16 @@ SUMMARY = "A high performance build system"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://COPYING;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
-SRC_URI = "git://github.com/mesonbuild/meson.git"
+SRC_URI = " \
+    git://github.com/mesonbuild/meson.git \
+"
 
-SRCREV = "3d4bfdcb22314ea7db45a5b075f8b2a9c1498aab"
+SRCREV = "5626df46453e73b63827c4542aae36443fbd928b"
 
 S = "${WORKDIR}/git"
 
 inherit setuptools3
 
-RDEPENDS_${PN}_class-target = "ninja python3-core python3-modules"
+RDEPENDS_${PN} = "ninja python3-core python3-modules"
 
 BBCLASSEXTEND = "native"
